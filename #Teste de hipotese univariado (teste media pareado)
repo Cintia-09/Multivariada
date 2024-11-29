@@ -1,0 +1,44 @@
+########Atividade 29/11
+#Teste de hipotese univariado (teste media pareado)
+
+
+n = length(x)
+n
+x= c(13.6, 
+13.6,
+14.7,
+12.1,
+12.3,
+13.2,
+11.0,
+12.4);x
+
+
+y=c( 11.4,
+      12.5,
+     14.6,
+     13.0,
+     11.7,
+     10.3,
+     9.8,
+     10.4);y
+
+cbind(x,y)
+
+d = y -x
+d
+### media
+d.barra = mean(d);d.barra
+###variancia
+s2.d = sum((d - d.barra)^2)/(n-1);s2.d
+sd= sqrt(s2.d);sd
+
+###teste
+
+t0= sqrt(n)*(d.barra/sd);t0
+alpha = 0.05
+alpha
+critico = qt(1-alpha/2, n-1);critico
+p.valor = pt(critico,n-1,lower.tail = F);p.valor
+abs(t0) > critico
+###rejeita H0
