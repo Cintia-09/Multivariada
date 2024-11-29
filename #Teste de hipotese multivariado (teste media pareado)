@@ -1,0 +1,57 @@
+
+#####atividade 29/11
+#Teste de hipotese multivariado (teste media pareado)
+rm(list = ls())
+x= c(1, 73, 31, 51, 35,
+       2, 43, 19, 41, 14,
+       3, 47, 22, 43, 19,
+       4, 53, 26, 41, 29,
+       5, 58, 36, 47, 34,
+       6, 47, 30, 32, 26,
+       7, 52, 29, 24, 19,
+       8, 38, 36, 43, 37,
+       9, 61, 34, 53, 24,
+       10, 56, 33, 52, 27, 
+       11, 56, 19, 57, 14, 
+       12, 34, 19, 44, 19, 
+       13, 55, 26, 57, 30, 
+       14, 65, 15, 40, 7, 
+       15, 75, 18, 68, 13);x
+
+Dados <- matrix(X, ncol=5, byrow=TRUE)
+colnames(Dados) <- c('i', 'y1', 'y2', 'x1', 'x2')
+Dados
+str(Dados)
+
+#Matriz de diferença
+di= matrix(c(Dados[,2] - Dados[,4], c(Dados[,3] - Dados[,5])), nrow = 15, ncol = 2); di
+
+n=nrow(Dados); n
+
+alfa= 0.05
+p=2
+
+# vetor de médias
+db= apply(di, 2, mean); db
+
+#matriz de variâncias e covariancias
+sd= var(di); sd 
+
+#T2 calculado
+T2_cal= n*t(db)%*%solve(sd)%*%db; T2_cal
+
+#T2 tabulado quantil 
+T2_tab=round((n-1)*p*qf(1-alfa,p,n-p)/(n-p),4);T2_tab
+
+# Rejeito H0 se T2_cal > T2_tab
+#Então rejeito H0, pois 10.8189 > 8.1966
+
+#calculo do F 5.02306                 F calculado
+F_cal=(n-p)*T2_cal/((n-1)*p); F_cal
+
+#F tabulado (F(p;n-p))  quantil
+F_tab= qf(0.95,p,n-p,lower.tail = T); F_tab
+
+# Rejeito H0 se F (f_cal) > F(p;n-p)
+#Então rejeito H0, pois 5.02306 > 3.805565
+
